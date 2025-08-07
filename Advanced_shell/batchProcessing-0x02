@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# List of Pokémon to download
+pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
+
+# Base API URL
+api_url="https://pokeapi.co/api/v2/pokemon"
+
+# Loop through each Pokémon
+for name in "${pokemon_list[@]}"
+do
+  echo "Fetching data for $name..."
+  
+  # Convert name to lowercase
+  lowercase_name=$(echo "$name" | tr '[:upper:]' '[:lower:]')
+
+  # Fetch and save JSON data
+  curl -s "${api_url}/${lowercase_name}" -o "${lowercase_name}.json"
+
+  # Delay to avoid rate-limiting
+  sleep 2
+done
+
+echo "Done downloading Pokémon data!"
